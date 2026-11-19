@@ -1,0 +1,65 @@
+---
+title: 'Draw any letter with LEDs'
+description: 'Draw capital letters A–Z with a grid of 0402 SMD LEDs using tscircuit'
+icon: 'code'
+---
+
+import LedLetterSnippet from "/snippets/led-letter.mdx"
+
+## Overview
+
+In this tutorial, we'll build a `LedLetter` component that draws any capital
+letter `A`–`Z` using a 5×7 pixel grid of 0402 SMD LEDs. Every lit pixel gets its
+own `<led />` plus a current-limiting `<resistor />`, wired between `power` and
+`gnd` and routed with `<trace />`.
+
+The letter shapes come from a 5×7 bitmap font (alphabet data), so placement is
+math-driven: iterate the grid and position each lit pixel with `x` and `y`.
+
+:::info
+  Want to skip to the source code? [Check out the github repository](https://github.com/tscircuit/led-letter)
+:::
+
+## Creating the circuit
+
+Open [snippets.tscircuit.com](https://snippets.tscircuit.com) and create a new snippet.
+
+Add the `LedLetter` component to your snippet:
+
+```tsx title="examples/LedLetter.tsx"
+import { LedLetter } from "lib/LedLetter"
+
+export const MyExample = () => <LedLetter letter="A" power="net.power" gnd="net.gnd" />
+```
+
+Click "Run" to see your circuit. Each lit pixel lights one LED.
+
+<LedLetterSnippet />
+
+## Understanding the layout
+
+The `LedLetter` component takes a `letter` (`A`–`Z`) and the `power`/`gnd` nets
+to drive:
+
+- `<led name={led} pos={power} neg={gnd} footprint="0402" ... />` — one LED per lit pixel, 0402 SMD footprint.
+- `<resistor name={res} resistance="330" footprint="0402" ... />` — one current-limiting resistor per LED.
+- `<trace from={...} to={...} />` — routes the resistor to the LED's positive terminal.
+
+The grid position of each LED is computed from its row and column:
+
+```tsx
+const PITCH = 1.5
+const x = c * PITCH
+const y = -r * PITCH
+```
+
+Because the alphabet data drives which pixels are lit, the same component draws
+any letter `A`–`Z` without manual placement.
+
+## Next steps
+
+- Change `RESISTANCE` to tune the brightness.
+- Change `PITCH` to spread the LEDs apart.
+- Draw your own shapes by editing the `ALPHABET` bitmaps.
+
+Remember to save your snippet if you want to share it or use it in other projects!
