@@ -418,6 +418,35 @@ The ESP32 provides numerous GPIO pins that can be used for various purposes:
 <trace from={ESP32.MTDI} to="net.GPIO12" />
 ```
 
+## PCB Layout and Routing
+
+Now that the schematic is complete, lay out the PCB by placing components
+with `pcbX`/`pcbY`/`pcbRotation` inside a `<board>` wrapper:
+
+```tsx
+<board width="50mm" height="40mm">
+  <ESP32 pcbX={0} pcbY={0} />
+  <chip name="U1" pcbX={10} pcbY={0} />
+  <chip name="ANT1" pcbX={-22} pcbY={0} pcbRotation={90} />
+  <chip name="U3" pcbX={20} pcbY={-6} />
+  <chip name="U4" pcbX={20} pcbY={6} />
+</board>
+```
+
+Route critical traces manually with `pcb_route_hints`, e.g. to keep the RF
+path to the antenna short (50Ω controlled impedance):
+
+```tsx
+<trace
+  from=".ANT1 .pin1"
+  to=".C15 .pos"
+  pcb_route_hints={[
+    { x: -12, y: 0 },
+    { x: -12, y: 0, via: true },
+  ]}
+/>
+```
+
 ## Testing Your Circuit
 
 Click "Run" to see your circuit. You can switch between different views:
