@@ -1,0 +1,46 @@
+---
+title: User-facing tools
+description: Overview of the different ways to use tscircuit
+slug: /tools
+---
+
+tscircuit can be used in a few different ways depending on how you want to work. This page describes the user-facing tools and when to use each one.
+
+## tscircuit CLI (`tsci`)
+
+The `tsci` CLI is the command-line interface for local development. Install it with:
+
+```bash
+npm install -g tscircuit tsx
+```
+
+Once installed, run `tsci --help` to see the available commands.
+
+| Command | Purpose |
+|---------|---------|
+| `tsci init` | Bootstrap a new circuit project in the current directory |
+| `tsci dev` | Start the local development server with a realtime Schematic and PCB preview |
+| `tsci add` | Add a component package from the registry to your project |
+| `tsci publish` | Publish your circuit to the tscircuit registry |
+
+Use the CLI when you want to develop circuits locally in your own editor and project structure. See the [Quickstart](/quickstart) for a step-by-step walkthrough.
+
+## tscircuit.com (Playground)
+
+You can use tscircuit entirely in your browser without installing anything. Go to [tscircuit.com](https://tscircuit.com), hit "New" at the top, and start building circuits right away. No sign up is required.
+
+The playground is a good place to experiment and try out circuits before setting up a local project.
+
+## Registry
+
+The [tscircuit registry](https://tscircuit.com/trending) is a central place to publish and discover re-usable components. You can publish your own circuits (publicly or privately) and use components published by others as sub-circuits in larger projects.
+
+The registry is npm-compatible, so you can also use npm's private registry features with the regular `npm publish` command.
+
+See the [Registry](/registry) page for more details.
+
+## Which tool should I use?
+
+- **Just trying things out:** Use the [Playground](https://tscircuit.com/playground) in your browser.
+- **Local development:** Install the [CLI](#tscircuit-cli-tsci) and run `tsci init` in a project directory.
+- **Sharing or re-using components:** Publish to the [Registry](https://tscircuit.com/trending).
